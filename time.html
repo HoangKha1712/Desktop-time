@@ -1,0 +1,240 @@
+<html lang="en"><head>
+
+    <meta charset="UTF-8">
+    <title>Time</title>
+    <link href="1024.png" rel="icon" />
+
+  <style>
+  html, body {
+    height: 100%;
+  }
+  
+  body {
+    background: #0f3854;
+    background: radial-gradient(ellipse at center, #01242e 0%, #000000 70%);
+    background-size: 100%;
+  }
+  
+  p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  #clock {
+    font-family: "Share Tech Mono", monospace;
+    color: #ffffff;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #daf6ff;
+    text-shadow: 0 0 20px #0aafe6, 0 0 20px rgba(10, 175, 230, 0);
+  }
+  #clock .time {
+    letter-spacing: 0.05em;
+    font-size: 80px;
+    padding: 5px 0;
+  }
+  #clock .date {
+    letter-spacing: 0.1em;
+    font-size: 24px;
+  }
+  .text{
+    color: #FFC125;
+    text-shadow: 0 0 20px #0aafe6, 0 0 20px rgba(10, 175, 230, 0);
+
+  }
+  #clock .text {
+    letter-spacing: 0.1em;
+    font-size: 19px;
+    padding: 20px 0 0;
+  }
+  </style>
+  
+    <script>
+    window.console = window.console || function(t) {};
+  </script>
+  
+    
+    
+    <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+  
+  
+  </head>
+  
+  <body translate="no">
+    <div id="clock">
+        <p class="date">{{ date }}</p>
+        <div id="MyClockDisplay" 
+        class="time" onload="showTime()">
+        </div>
+
+        <div class="text">
+          <span class="dud">A B C F D E F G H I</span>
+          <span class="dud">J K L M N O P Q R S</span>A<span class="dud">&gt;</span>
+          <span class="dud">T U V W X Y Z</span>B C D<span class="dud">E F</span>G H I<span class="dud">J K</span>
+          <span class="dud">0 1 2 3 4 5 6 7 8 9</span><span class="dud">L M N</span><span class="dud">O P</span>Q R S</div>
+
+      </div>
+      
+      
+    </div>
+      <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+
+
+
+   <script id="rendered-js">//day
+  var clock = new Vue({
+    el: '#clock',
+    data: {
+      date: '' } });
+  
+  
+  
+  var week = ['Chủ Nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
+  updateTime();
+  function updateTime() {
+    var cd = new Date();
+    clock.date = zeroPadding(cd.getFullYear(), 4) + '-' + zeroPadding(cd.getMonth() + 1, 2) + '-' + zeroPadding(cd.getDate(), 2) + ' ' + week[cd.getDay()];
+  };
+  
+  function zeroPadding(num, digit) {
+    var zero = '';
+    for (var i = 0; i < digit; i++) {
+      zero += '0';
+    }
+    return (zero + num).slice(-digit);
+  }
+  //# sourceURL=pen.js
+      </script>
+
+
+<script id="rendered-js"> //text
+  // ——————————————————————————————————————————————————
+  // TextScramble
+  // ——————————————————————————————————————————————————
+  
+  class TextScramble {
+    constructor(el) {
+      this.el = el;
+      this.chars = '!<>-_\\/[]{}—=+*^?#_╝s║L╟ƒ♣█╚`µ¡';
+      this.update = this.update.bind(this);
+    }
+    setText(newText) {
+      const oldText = this.el.innerText;
+      const length = Math.max(oldText.length, newText.length);
+      const promise = new Promise(resolve => this.resolve = resolve);
+      this.queue = [];
+      for (let i = 0; i < length; i++) {
+        const from = oldText[i] || '';
+        const to = newText[i] || '';
+        const start = Math.floor(Math.random() * 900);
+        const end = start + Math.floor(Math.random() * 900);
+        this.queue.push({ from, to, start, end });
+      }
+      cancelAnimationFrame(this.frameRequest);
+      this.frame = 0;
+      this.update();
+      return promise;
+    }
+    update() {
+      let output = '';
+      let complete = 0;
+      for (let i = 0, n = this.queue.length; i < n; i++) {
+        let { from, to, start, end, char } = this.queue[i];
+        if (this.frame >= end) {
+          complete++;
+          output += to;
+        } else if (this.frame >= start) {
+          if (!char || Math.random() < 0.88) {
+            char = this.randomChar();
+            this.queue[i].char = char;
+          }
+          output += `<span class="dud">${char}</span>`;
+        } else {
+          output += from;
+        }
+      }
+      this.el.innerHTML = output;
+      if (complete === this.queue.length) {
+        this.resolve();
+      } else {
+        this.frameRequest = requestAnimationFrame(this.update);
+        this.frame++;
+      }
+    }
+    randomChar() {
+      return this.chars[Math.floor(Math.random() * this.chars.length)];
+    }}
+  
+  
+  // ——————————————————————————————————————————————————
+  // Example
+  // ——————————————————————————————————————————————————
+  
+  const phrases = [
+  'Name:Kha 💀',
+  'Hoàng Kha📒',
+  'Full name:Võ Hoàng Kha🖊',
+  'Birthday:17/12/1999🎁',
+  '🐹Thank You🐭'];
+  
+  
+  const el = document.querySelector('.text');
+  const fx = new TextScramble(el);
+  
+  let counter = 0;
+  const next = () => {
+    fx.setText(phrases[counter]).then(() => {
+      setTimeout(next, 2000);
+    });
+    counter = (counter + 1) % phrases.length;
+  };
+  
+  next();
+  //# sourceURL=pen.js
+      </script>
+  
+    
+  <script id="rendered-js"> //time
+    function showTime() {
+      var date = new Date();
+      var h = date.getHours(); // 0 - 23
+      var m = date.getMinutes(); // 0 - 59
+      var s = date.getSeconds(); // 0 - 59
+      var session = "AM";
+    
+      if (h == 0) {
+        h = 12;
+      }
+    
+      if (h > 12) {
+        h = h - 12;
+        session = "PM";
+      }
+    
+      h = h < 10 ? "0" + h : h;
+      m = m < 10 ? "0" + m : m;
+      s = s < 10 ? "0" + s : s;
+    
+      var time = h + ":" + m + ":" + s + " " + session;
+      document.getElementById("MyClockDisplay").innerText = time;
+      document.getElementById("MyClockDisplay").textContent = time;
+    
+      setTimeout(showTime, 1000);
+    
+    }
+    
+    showTime();
+        </script>
+  
+  
+   
+  </body></html>
