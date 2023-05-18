@@ -12,13 +12,11 @@ B3: Mở Lively Wallpaper ở trang chính có dấu + ở góc bên phải màn
 
 < Đổi hình nền >
 
-vào code  chổ * body          
+vào code  chổ  body          
 
                             background: #0f3854;
                             
                             background: radial-gradient(ellipse at center, #01242e 0%, #000000 70%); 
-                            
-                            *
                             
 xóa 2 dòng nầy và thay đoạn code bên dưới vào
 
