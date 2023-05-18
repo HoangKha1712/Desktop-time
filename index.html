@@ -13,9 +13,11 @@
     background: #0f3854;
     background: radial-gradient(ellipse at center, #01242e 0%, #000000 70%);
     background-size: 100%;
-    -ms-overflow-style: none; /* cho  Internet Explorer, Edge */
-    scrollbar-width: none; /* cho Firefox */
-    overflow-y: scroll; 
+    width: 200px;
+    max-height: 100px;  
+    overflow: auto;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
   }
   
   p {
